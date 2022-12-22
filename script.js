@@ -35,12 +35,22 @@ function createGrid(size){
     for(let i=0; i < divCount; i++) {
         let gridSquare = document.createElement('div');
         gridSquare.style.border = `1px solid grey`;
-        gridSquare.addEventListener(`mouseover`, function(){
+        gridSquare.classList.add(`grid-square`);
+        gridContainer.insertAdjacentElement(`beforeend`, gridSquare);
+
+        //adds ability to draw in black and white
+        gridSquare.addEventListener(`mouseover`, function bwMode(){
             gridSquare.style.backgroundColor = `black`;
         });
-        gridContainer.insertAdjacentElement(`beforeend`, gridSquare);
+
+        //button that clears grid of color
+        let clearButton = document.getElementById(`reset`);
+        clearButton.addEventListener('click', function(){
+        gridSquare.style.backgroundColor = null;
+        });
     }
 }
+
 
 //loads page with default 16x16 slider
 sizeSelector();
