@@ -38,14 +38,12 @@ function createGrid(size){
         gridSquare.classList.add(`grid-square`);
         gridContainer.insertAdjacentElement(`beforeend`, gridSquare);
 
-        //adds ability to draw in black and white
-        gridSquare.addEventListener(`mouseover`, function bwMode(){
-            gridSquare.style.backgroundColor = `black`;
-        });
+        //eventlistener for div coloring with mouse, using below colorSquare function
+        gridSquare.addEventListener(`mouseover`, colorSquare);
 
         //button that clears grid of color
         let clearButton = document.getElementById(`reset`);
-        clearButton.addEventListener('click', function(){
+        clearButton.addEventListener(`click`, function(){
         gridSquare.style.backgroundColor = null;
         });
     }
@@ -54,3 +52,40 @@ function createGrid(size){
 
 //loads page with default 16x16 slider
 sizeSelector();
+
+//button eventlistener to set color mode; also sets default mode to black/white
+let color = `black`;
+let bwButton = document.getElementById(`bw`);
+let colorButton = document.getElementById(`color`);
+bwButton.addEventListener(`click`, function() {
+    color = `black`;
+});
+colorButton.addEventListener(`click`, function() {
+    color = `random`;
+});
+
+//function which changes grid color depending on mode
+function colorSquare() {
+    let r = Math.floor(Math.random() * (256));
+    let g = Math.floor(Math.random() * (256));
+    let b = Math.floor(Math.random() * (256));
+    if(color == 'random'){
+        this.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    }
+    else{
+        this.style.backgroundColor = `black`;
+        document.getElementById(`bw`).style.backgroundColor = `green`;
+    }
+}
+
+
+//current color mode indicated with corresponding button color in green
+bwButton.addEventListener(`click`, function(){
+    this.style.backgroundColor = `green`;
+    colorButton.style.backgroundColor = null;
+});
+colorButton.addEventListener(`click`, function(){
+    this.style.backgroundColor = `green`;
+    bwButton.style.backgroundColor = null;
+});
+
